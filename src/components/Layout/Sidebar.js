@@ -84,12 +84,14 @@ export default function Sidebar({ open, handleDrawerClose }) {
                     </ListItemIcon>
                     <ListItemText primary="Orders" />
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <PeopleIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Customers" />
-                </ListItem>
+                <RouterLink to="/customers">
+                    <ListItem button>
+                        <ListItemIcon>
+                            <PeopleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Customers" />
+                    </ListItem>
+                </RouterLink>
                 <ListItem button>
                     <ListItemIcon>
                         <BarChartIcon />

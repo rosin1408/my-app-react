@@ -1,25 +1,41 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import  { 
+    Avatar,
+    Button,
+    CssBaseline,
+    TextField,
+    FormControlLabel,
+    Checkbox, Link,
+    Grid,
+    Box,
+    Typography,
+    Container,
+    Backdrop,
+    CircularProgress,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Slide
+} from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { useForm, Controller } from 'react-hook-form';
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import Copyright from '../copyright/Copyright'
 
+import { login } from '../../services/auth';
+
 const axios = require('axios').default;
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    }
 }));
 
 const UsernameOrEmail = ({ control, errors }) => {
@@ -108,12 +128,38 @@ const ButtonSubmit = ({ classes }) => {
 
 export default function Login() {
     const { control, handleSubmit, errors } = useForm();
+    const [open, setOpen] = React.useState(false);
+    const [dialogOpen, setDialogOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleOpenDialog = () => {
+        setDialogOpen(true);
+    }
+    const handleCloseDialog = () => {
+        setDialogOpen(false);
+    }
+
     const classes = useStyles();
+    
     let history = useHistory();
+    let location = useLocation();
 
     const onSubmit = (data, e) => {
+        handleOpen();
         const loginData = {usernameOrEmail: data.usernamrOrEmail, password: data.password};
-        axios.post('http://localhost:8080/api/auth/signin', loginData).then(a => history.pus('/'));
+        axios.post('http://localhost:8080/api/auth/signin', loginData).then(a => {
+            
+            login(a.data)
+            let { from } = location.state || { from: { pathname: "/dashboard" } };
+            history.replace(from);  
+            setOpen(false);
+        }).catch(e => {
+            setOpen(false);
+            handleOpenDialog();
+        });
     }
 
     return (
@@ -132,10 +178,6 @@ export default function Login() {
 
                     <Password control={control} errors={errors}/>
 
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <ButtonSubmit classes={classes} />
                     
                     <Grid container>
@@ -155,6 +197,38 @@ export default function Login() {
             <Box mt={8}>
                 <Copyright />
             </Box>
+
+
+
+
+            <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+
+
+            
+
+
+            <Dialog
+                    open={dialogOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleCloseDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                    >
+                <DialogTitle id="alert-dialog-slide-title">{"Bad credentials"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        Username or password is invalid!
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        Ok
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 }

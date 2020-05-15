@@ -11,6 +11,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
+import { useHistory, useLocation } from "react-router-dom";
+
+import { logout } from '../../services/auth';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +50,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
     const classes = useStyles();
 
+    let history = useHistory();
+    let location = useLocation();
+    const handleLogout = () => {
+        logout()
+        let { from } = location.state || { from: { pathname: "/dashboard" } };
+        history.replace(from);
+    }
+
     return (
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
@@ -61,7 +73,7 @@ export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                     Dashboard
                 </Typography>
-                <IconButton color="inherit">
+                <IconButton color="inherit" onClick={handleLogout}>
                     <Badge badgeContent={4} color="secondary">
                         <NotificationsIcon />
                     </Badge>
