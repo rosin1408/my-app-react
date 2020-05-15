@@ -1,0 +1,6 @@
+#div-main-content {
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}

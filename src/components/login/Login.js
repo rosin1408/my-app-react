@@ -14,29 +14,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { useForm, Controller } from 'react-hook-form';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
-    useHistory,
-    useLocation
-  } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
+
+import Copyright from '../copyright/Copyright'
 
 const axios = require('axios').default;
-
-function Copyright() {
-    return (
-    <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-            Roberto Rosin
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-    </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     paper: {

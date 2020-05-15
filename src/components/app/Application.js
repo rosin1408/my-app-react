@@ -37,19 +37,7 @@ import {
 
 import Dashboard from './dashboard/Dashboard';
 import Login from '../login/Login'
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-            Your Website
-        </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Copyright from '../copyright/Copyright'
 
 const drawerWidth = 240
 
@@ -141,11 +129,15 @@ export default function Application() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
         <Router>
             <div className={classes.root}>
+                <Switch>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                </Switch>
                 <CssBaseline />
                 <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                     <Toolbar className={classes.toolbar}>
@@ -239,7 +231,7 @@ export default function Application() {
                     </List>
                 </Drawer>
                 <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                    <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         
 
@@ -247,11 +239,11 @@ export default function Application() {
                         
 
                         <Switch>
-                            <Route path="/dashboard">
+                            <Route exact path="/">
                                 <Dashboard />
                             </Route>
-                            <Route path="/login">
-                                <Login />
+                            <Route path="/dashboard">
+                                <Dashboard />
                             </Route>
                         </Switch>
 
