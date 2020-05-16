@@ -9,7 +9,7 @@ import Dashboard from './components/app/dashboard/Dashboard';
 import './App.css';
 
 import 'typeface-roboto';
-import Customers from './components/app/clients/CustomersView';
+import Customers from './components/app/customers/CustomersView';
 
 function App() {
   return (

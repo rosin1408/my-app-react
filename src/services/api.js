@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: "localhost:8080"
+  baseURL: "http://localhost:8080/api"
 });
 
 api.interceptors.request.use(async config => {
@@ -11,6 +11,17 @@ api.interceptors.request.use(async config => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
+});
+
+api.interceptors.response.use((response) => {
+  return response;
+},(error) => {
+  if (error.response.status === 401) { 
+    console.log('ERRO DE AUTENTICAÇÂO')    ;
+    const requestConfig = error.config;
+    return axios(requestConfig);
+  }
+  return Promise.reject(error);
 });
 
 export default api;

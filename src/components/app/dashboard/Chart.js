@@ -29,7 +29,8 @@ const data = [
   createData('11/5', 353, 153),
   createData('12/5', 405, 135),
   createData('13/5', 420, 204),
-  createData('14/5', 441, 247)
+  createData('14/5', 441, 247),
+  createData('15/5', 464, 263)
 ];
 
 export default function Chart() {

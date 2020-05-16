@@ -58,7 +58,6 @@ export default function MainLayout(props) {
                         </Box>
                     </Container>
                 </main>
-
                 
                 <Footer />
             </Content>
