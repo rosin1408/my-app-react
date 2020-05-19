@@ -32,9 +32,11 @@ import { login } from '../../services/auth';
 
 const axios = require('axios').default;
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+const Transition = React.forwardRef(
+    function Transition(props, ref) {
+        return <Slide direction="up" ref={ref} {...props} />;
+    }
+);
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -153,7 +155,7 @@ export default function Login() {
             
             login(a.data)
             let { from } = location.state || { from: { pathname: "/dashboard" } };
-            history.replace(from);  
+            history.replace(from);
             setOpen(false);
         }).catch(e => {
             setOpen(false);

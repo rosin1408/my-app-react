@@ -10,6 +10,7 @@ import './App.css';
 
 import 'typeface-roboto';
 import Customers from './components/app/customers/CustomersView';
+import CustomerForm from './components/app/customers/CustomerForm';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <PrivateRoute exact path="/" component={Dashboard}/>
           <PrivateRoute exact path="/dashboard" component={Dashboard}/>
           <PrivateRoute exact path="/customers" component={Customers}/>
+          <PrivateRoute exact path="/customer" component={CustomerForm}/>
         </MainLayout>
         
       </Switch>

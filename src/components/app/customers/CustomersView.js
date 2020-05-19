@@ -1,8 +1,17 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import api from '../../../services/api';
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function Orders() {
+  let history = useHistory();
+  let location = useLocation();
+
+  const handleClickNew = () => {
+    let { from } = location.state || { from: { pathname: "/customer" } };
+    history.push(from);
+  }
+
   return (
     <MaterialTable
         title="Customers"
@@ -22,6 +31,14 @@ export default function Orders() {
             });
           })
         }
+        actions={[
+          {
+            icon: 'add',
+            tooltip: 'Add Customer',
+            isFreeAction: true,
+            onClick: (event) => handleClickNew()
+          }
+        ]}
       />
   );
 }
