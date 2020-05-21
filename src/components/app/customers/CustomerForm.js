@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
+  DatePicker,
 } from '@material-ui/pickers';
 
 import 'date-fns';
@@ -54,12 +53,14 @@ export default function CustomerForm() {
           </Grid>
           <Grid container item xs={12} md={4}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                margin="normal"
+              <DatePicker
+                fullWidth
+                margin="none"
                 id="date-picker-dialog"
                 label="Date picker dialog"
                 format="MM/dd/yyyy"
-                variant="outlined"
+                inputVariant="outlined"
+                variant="inline"
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
