@@ -63,9 +63,6 @@ export default function CustomerForm() {
                 variant="inline"
                 value={selectedDate}
                 onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
               />
             </MuiPickersUtilsProvider>
           </Grid>
