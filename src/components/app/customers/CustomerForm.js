@@ -113,7 +113,7 @@ export default function CustomerForm() {
                     />
                   }
                   name="birthDate"
-                  value="21/05/2020"
+                  value={new Date()}
                   control={control}
                   defaultValue={new Date()}
                   rules={{ required: true }}
