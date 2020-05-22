@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, TextField, Paper, Typography, CssBaseline } from '@material-ui/core';
+import { Grid, TextField, Paper, Typography, CssBaseline, Button, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
+import SaveIcon from '@material-ui/icons/Save';
 import {
   MuiPickersUtilsProvider,
   DatePicker,
@@ -67,6 +68,18 @@ export default function CustomerForm() {
             </MuiPickersUtilsProvider>
           </Grid>
         </Grid>
+        <Box display="flex" flexDirection="row-reverse" width={1} m={1} p={1}>
+          <Box >
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              startIcon={<SaveIcon />}
+            >
+              Save
+            </Button>
+          </Box>
+        </Box>
       </Paper>
     </>
   )
