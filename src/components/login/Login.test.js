@@ -81,9 +81,6 @@ describe("Testing Login Component", () => {
     const password = getByTestId("password");
     const loginButton = getByTestId("loginButton");
 
-    // username.value = "rosin1408@gmail.com";
-    // password.value = "12345678";
-
     fireEvent.input(username, {target: {value: "rosin1408@gmail.com"}});
     fireEvent.input(password, {target: {value: "12345678"}});
     
@@ -93,8 +90,6 @@ describe("Testing Login Component", () => {
     // axios.get.mockResolvedValue(resp);
     axios.post.mockImplementation(() => Promise.resolve(resp))
 
-    
-
     await act(async () => {
       await fireEvent.click(loginButton);
     });
@@ -103,5 +98,25 @@ describe("Testing Login Component", () => {
     expect(password.value).toBe("12345678");
 
     expect(axiosSpy).toHaveBeenCalled()
-  })
+  });
+
+  it('should not call api when submit and all form input is not filled', async () => {
+    
+    const { getByTestId } = render(
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>,
+        container
+      );
+    
+    const loginButton = getByTestId("loginButton");
+    
+    const axiosSpy = jest.spyOn(axios, 'post');
+
+    act(() => {
+      fireEvent.click(loginButton);
+    });
+
+    expect(axiosSpy).toHaveBeenCalled()
+  });
 });

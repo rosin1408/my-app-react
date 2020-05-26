@@ -211,8 +211,6 @@ export default function Login() {
         <Copyright />
       </Box>
 
-      <span data-testid="teste">span local</span>
-
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
