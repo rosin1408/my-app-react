@@ -66,3 +66,21 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+# Dependencies
+## ReactJS
+https://pt-br.reactjs.org/
+## ReactHookForm
+https://react-hook-form.com/pt/get-started/#Quickstart
+## Material UI
+https://material-ui.com/getting-started/example-projects/
+## Date FNS
+https://material-ui-pickers.dev/localization/date-fns
+## Jest
+https://jestjs.io/docs/pt-BR/tutorial-react
+## Material Data Table
+https://github.com/mbrn/material-table
+## Axios
+https://github.com/axios/axios
+## Recharts
+https://recharts.org/en-US/guide/installation
