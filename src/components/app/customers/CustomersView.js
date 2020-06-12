@@ -18,7 +18,7 @@ export default function Orders() {
         columns={[
           { title: 'Id', field: 'id' },
           { title: 'Name', field: 'name' },
-          { title: 'Birth Date', field: 'birthDate' },
+          { title: 'Birth Date', field: 'birthDate' }
         ]}
         data={query =>
           new Promise((resolve, reject) => {
