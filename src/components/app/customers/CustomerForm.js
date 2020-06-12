@@ -13,8 +13,10 @@ import DateFnsUtils from "@date-io/date-fns";
 import SaveIcon from "@material-ui/icons/Save";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import { useForm, Controller } from "react-hook-form";
+import api from '../../../services/api';
 
 import "date-fns";
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -36,19 +38,14 @@ export default function CustomerForm() {
   const classes = useStyles();
 
   const { handleSubmit, control, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
-
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+  const onSubmit = (data) => {
+    data.birthDate = format(data.birthDate, "yyyy-mm-dd");
+    api.post('customer', data).then(() => alert("Saved")).catch(() => alert("error"));
+  }
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={ handleSubmit(onSubmit) }>
         <CssBaseline />
         <Paper className={classes.paper}>
           <Grid container spacing={3}>
@@ -87,7 +84,7 @@ export default function CustomerForm() {
                     fullWidth
                     variant="outlined"
                     error={errors.name && true}
-                    helperText={errors.name ? 'Name is required' : ''}
+                    helperText={errors.name ? "Name is required" : ""}
                   />
                 }
                 name="name"
