@@ -6,7 +6,7 @@ import { screen, fireEvent, render } from "@testing-library/react";
 
 import 'mutationobserver-shim';
 
-import Login from "./Login";
+import Login from "./index";
 import axios from "axios";
 
 import '@testing-library/jest-dom/extend-expect'
@@ -26,6 +26,8 @@ afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
+
+  jest.clearAllMocks();
 });
 
 describe("Testing Login Component", () => {
@@ -108,14 +110,46 @@ describe("Testing Login Component", () => {
         </MemoryRouter>,
         container
       );
-    
+
     const loginButton = getByTestId("loginButton");
     
     const axiosSpy = jest.spyOn(axios, 'post');
 
-    act(() => {
-      fireEvent.click(loginButton);
+    await act(async () => {
+      await fireEvent.click(loginButton);
     });
+
+    expect(axiosSpy).not.toHaveBeenCalled();
+  });
+
+  it('should show modal when api returns bad credentials', async () => {
+    
+    const { getByTestId } = render(
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>,
+        container
+      );
+    
+    const username = getByTestId("usernamrOrEmail");
+    const password = getByTestId("password");
+    const loginButton = getByTestId("loginButton");
+
+    fireEvent.input(username, {target: {value: "rosin1408@gmail.com"}});
+    fireEvent.input(password, {target: {value: "12345678"}});
+    
+    const axiosSpy = jest.spyOn(axios, 'post');
+
+    const resp = {data: {token: 'f6ds4f6df3d2f1145231222dds'}};
+    // axios.get.mockResolvedValue(resp);
+    axios.post.mockImplementation(() => Promise.resolve(resp))
+
+    await act(async () => {
+      await fireEvent.click(loginButton);
+    });
+
+    expect(username.value).toBe("rosin1408@gmail.com");
+    expect(password.value).toBe("12345678");
 
     expect(axiosSpy).toHaveBeenCalled()
   });

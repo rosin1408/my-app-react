@@ -4,7 +4,7 @@ import EmptyLayout from './components/Layout/EmptyLayout';
 import MainLayout from './components/Layout/MainLayout';
 import LayoutRoute from './components/Layout/LayoutRoute';
 import PrivateRoute from './components/Layout/PrivateRoute';
-import Login from './components/login/Login';
+import Login from './components/Login';
 import Dashboard from './components/app/dashboard/Dashboard';
 import './App.css';
 
