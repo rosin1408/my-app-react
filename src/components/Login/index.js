@@ -160,8 +160,8 @@ export default function Login() {
     
     axios
       .post("http://localhost:8080/api/auth/signin", loginData)
-      .then((a) => {
-        login(a.data);
+      .then(async (a) => {
+        await login(a.data);
         let { from } = location.state || { from: { pathname: "/dashboard" } };
         history.replace(from);
         setOpen(false);

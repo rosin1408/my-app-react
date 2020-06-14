@@ -3,6 +3,7 @@ import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import { screen, fireEvent, render } from "@testing-library/react";
+import { logout, getToken } from '../../services/auth';
 
 import 'mutationobserver-shim';
 
@@ -99,7 +100,7 @@ describe("Testing Login Component", () => {
     expect(username.value).toBe("rosin1408@gmail.com");
     expect(password.value).toBe("12345678");
 
-    expect(axiosSpy).toHaveBeenCalled()
+    expect(axiosSpy).toHaveBeenCalled();
   });
 
   it('should not call api when submit and all form input is not filled', async () => {
