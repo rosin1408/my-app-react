@@ -1,7 +1,5 @@
 import { TOKEN_KEY, isAuthenticated, getToken, login, logout } from './auth';
 
-import localForage from 'localforage';
-
 import '../mock/MockConfigure';
 
 beforeEach(() => {
@@ -10,7 +8,9 @@ beforeEach(() => {
 
 describe('testing auth service', () => {
   it('token in local storage should be null', () => {
-    localForage.getItem("@my-appp-Token").then(token => expect(token).toBeNull());
+    const nullToken = localStorage.getItem("@my-appp-Token");
+    
+    expect(nullToken).toBeNull();
   });
 
   it('should set token in local storage', () => {
@@ -19,8 +19,8 @@ describe('testing auth service', () => {
 
     login(authorization);
     
-    localForage.getItem(TOKEN_KEY).then(token => expect(token).toBe("MyToken"));
- });
+    expect(localStorage.getItem(TOKEN_KEY)).toBe("MyToken");
+  });
 
   it('should remove token from local storage on logout', () => {
     const token = "MyToken";
@@ -30,31 +30,30 @@ describe('testing auth service', () => {
 
     logout();
 
-    localForage.getItem(TOKEN_KEY).then(token => expect(token).toBeNull());
+    expect(localStorage.getItem(TOKEN_KEY)).toBeNull();
   });
 
-  it('should return true when is authenticated', async()  => {
-    const token = "MyToken";
-    const authorization = {accessToken: token}
-
-    await login(authorization);
-
-    localForage.getItem(TOKEN_KEY).then(token => expect(token).toBe("MyToken"));
-    expect(await isAuthenticated()).toBe(true);
-  });
-
-  it('should return false when is not authenticated', async ()  => {
-    await logout();
-
-    isAuthenticated().then(isAuthenticated => expect(isAuthenticated).toBeFalsy());
-  });
-
-  it('should return token', async ()  => {
+  it('should return true when is authenticated', ()  => {
     const token = "MyToken";
     const authorization = {accessToken: token}
 
     login(authorization);
 
-    expect(await getToken()).toBe('MyToken');
+    expect(isAuthenticated()).toBeTruthy();
+  });
+
+  it('should return false when is not authenticated', ()  => {
+    logout();
+
+    expect(isAuthenticated()).toBeFalsy();
+  });
+
+  it('should return token', ()  => {
+    const token = "MyToken";
+    const authorization = {accessToken: token}
+
+    login(authorization);
+
+    expect(getToken()).toBe('MyToken');
   });
 });
