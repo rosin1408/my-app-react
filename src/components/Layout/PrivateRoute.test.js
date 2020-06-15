@@ -2,7 +2,7 @@ import React from "react";
 import { unmountComponentAtNode } from "react-dom";
 import * as auth from "../../services/auth";
 import { MemoryRouter } from "react-router-dom";
-import { screen, fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { createMemoryHistory } from 'history'
 
 import App from "../../App";

@@ -5,7 +5,7 @@ import MainLayout from './components/Layout/MainLayout';
 import LayoutRoute from './components/Layout/LayoutRoute';
 import PrivateRoute from './components/Layout/PrivateRoute';
 import Login from './components/Login';
-import Dashboard from './components/app/dashboard/Dashboard';
+import Dashboard from './components/app/Dashboard';
 import './App.css';
 
 import 'typeface-roboto';
@@ -39,18 +39,3 @@ function App() {
 }
 
 export default App;
-
-// import './App.css';
-
-// import 'typeface-roboto';
-// import Application from './components/app/Application'
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Application />
-//     </div>
-//   );
-// }
-
-// export default App;
