@@ -54,7 +54,7 @@ export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
     let location = useLocation();
     const handleLogout = () => {
         logout()
-        let { from } = location.state || { from: { pathname: "/dashboard" } };
+        let { from } = location.state || { from: { pathname: "/login" } };
         history.replace(from);
     }
 

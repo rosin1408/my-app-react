@@ -100,6 +100,7 @@ const Password = ({ control, errors }) => {
           fullWidth
           name="password"
           label="Password"
+          type="password"
           inputProps={{ "data-testid": "password" }}
           autoComplete="current-password"
           error={errors.password && true}
